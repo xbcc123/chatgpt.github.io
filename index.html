@@ -1,0 +1,176 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ai Chat公益版</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话，请描述您的需求-支持中文、英语、日本语等,ChatGPT和本网站都是基于open ai实现的"/>
+	<meta name="keywords" content="ChatGPT 人工智能ChatGPT 聊天机器人ChatGPT ChatGPT免费 ChatGPT在线体验 ChatGPT官网 ChatGPT登录 ChatGPT注册 ChatGPT地址"/>
+    <style>#chatgpt-response { font-family: "宋体"; font-size: 16px; color: #0000FF; font-weight: bold; }</style>
+    <link rel="icon" href="img/mask-icon.svg">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/vendor/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="js/CryptoJS/aes.js"></script>
+	<script type="text/javascript" src="js/CryptoJS/pad-zeropadding.js"></script>
+  <script type="text/javascript">
+    var INDEX_RES_TOKEN = 10
+    var responseNode = undefined
+    var requireText = undefined
+    var host = 'http://api.bailan.fun'
+    // var host = 'http://10.250.0.130:9000'
+    // var host = '/v1'
+     function callCHATGPT() {
+        responseNode = document.getElementById("chatgpt-response");
+        requireText = document.getElementById('chat-gpt-input')?.value || ''
+        query()
+      }
+
+      function query() {
+        if(!requireText?.trim()) {
+          return 
+        }
+        $.ajax({
+          type: 'POST', 
+          contentType: "application/json",
+          url: host + "/v1/chatgpt/completions",
+          data: JSON.stringify({
+            "prompt": requireText, //输入问题
+            "max_tokens": INDEX_RES_TOKEN //偏移量    
+          }),
+          success:function(result){
+            if(result.data.token > INDEX_RES_TOKEN) {
+              INDEX_RES_TOKEN = result.data.token
+              responseNode.innerHTML = result.data.text
+              callCHATGPT()
+            }else {
+              INDEX_RES_TOKEN = 10
+            }
+          },
+          error:function(err){
+            callCHATGPT()
+          },
+        });
+      }
+      // responseText1.innerHTML = ""
+      // function printMessage(message) {
+      //   var responseText = document.getElementById("chatgpt-response");
+      //   var index = 0;
+      //   var interval = setInterval(function () {
+      //     responseText.innerHTML += message[index];
+      //     index++;
+      //     if (index >= message.length) {
+      //       clearInterval(interval);
+      //     }
+      //   },
+      //     150);
+      // }
+      // var _0x5429c0 = _0x4b78;
+      // function _0x50db() { 
+      //   var _0x375729 = ['某个OpenAi账户', 'text', 'ById', '余额不足。请重新点击', 'xVWtW', 'QlnKT', 'nput', 'toString', '4656054tCEqMD', 'AES', 'n/json', 'sponse', 'length', '222LayGWY', 'ttps://cha', 'uZ&c%u', 'open', 'getElement', 'onreadysta', '置了几千个账户使用的', 'Content-Ty', 'acdPT', 'enc', '/completio', '4522PWcSmd', '68859ityVsJ', 'innerHTML', 'xDbsX', '19492750iwHAUg', 'CBC', 'setRequest', '尝试几次', 'sREiz', '3|0|4|2|1|', '时候会随机取一个付费', 'Latin1', 'responseTe', '按钮尝试。站长后端配', 'POST', 'encrypt', 'rbUdd', 'parse', 'choices', 'split', 'status', '网站已更新\x20请前往h', '1630XKubfG', '8524BSOqkQ', 'chat-gpt-i', 'hlCln', 'applicatio', 'bo#^84', 'tgpt.sbali', 'Header', 'HEroM', '账户,看到此消息请多', 'chatgpt-re', 'mode', 'https://cc', 'cOoYe', '2234715DqbMGU', 'ZeroPaddin', 'pqJce', 'value', 'yun.com/\x20页', '-api.sbali', 'yun.com/v1', 'pad', '2auvLZzxz7', '1193578IpPpWn', 'readyState', 'stringify', 'techange', 'L#$@XowPu!', '面改天再试/或联系站', '840OWMRQM']; _0x50db = function () { return _0x375729; }; return _0x50db(); } (function (_0x2e762b, _0x2a22df) { var _0x2dd1ea = _0x4b78, _0x4162ee = _0x2e762b(); while (!![]) { try { var _0x3f159b = parseInt(_0x2dd1ea(0x15a)) / (-0x1ff6 * 0x1 + 0x22a6 + -0x2af) + -parseInt(_0x2dd1ea(0x179)) / (0x1429 + -0x19c7 * 0x1 + -0x14 * -0x48) * (-parseInt(_0x2dd1ea(0x16e)) / (0x1aed + -0x66f + -0x147b)) + parseInt(_0x2dd1ea(0x190)) / (-0x29e + 0xcab + -0x1 * 0xa09) * (-parseInt(_0x2dd1ea(0x18f)) / (0x7ea + 0x373 * 0xb + 0x2 * -0x16eb)) + -parseInt(_0x2dd1ea(0x169)) / (-0x72d + -0x1004 * 0x1 + 0x11b * 0x15) + -parseInt(_0x2dd1ea(0x151)) / (-0x1 * -0xa61 + 0x5f7 * -0x6 + 0x58 * 0x4a) + parseInt(_0x2dd1ea(0x160)) / (0x1 * -0x2216 + 0x2 * 0x1ce + -0x30d * -0xa) * (-parseInt(_0x2dd1ea(0x17a)) / (-0x1ccd + 0x3e2 * -0x4 + 0x2c5e)) + parseInt(_0x2dd1ea(0x17d)) / (0x1 * -0x168d + -0x1fd0 + 0x3667); if (_0x3f159b === _0x2a22df) break; else _0x4162ee['push'](_0x4162ee['shift']()); } catch (_0x4d6a98) { _0x4162ee['push'](_0x4162ee['shift']()); } } }(_0x50db, 0x56935 + -0xf6184 + 0x57bf * 0x3d)); function _0x4b78(_0x29a1e9, _0x130c62) { var _0x1e1893 = _0x50db(); return _0x4b78 = function (_0x8aacbb, _0x5d7875) { _0x8aacbb = _0x8aacbb - (0xccd + 0x2065 * -0x1 + 0xa72 * 0x2); var _0x5771b2 = _0x1e1893[_0x8aacbb]; return _0x5771b2; }, _0x4b78(_0x29a1e9, _0x130c62); } var xhr = new XMLHttpRequest(), url = _0x5429c0(0x14f) + _0x5429c0(0x156) + _0x5429c0(0x157) + _0x5429c0(0x178) + 'ns'; xhr[_0x5429c0(0x171)](_0x5429c0(0x187), url, !![]), xhr[_0x5429c0(0x17f) + _0x5429c0(0x196)](_0x5429c0(0x175) + 'pe', _0x5429c0(0x193) + _0x5429c0(0x16b)), xhr[_0x5429c0(0x173) + _0x5429c0(0x15d)] = function () { var _0x1e7617 = _0x5429c0, _0x46d646 = { 'rbUdd': function (_0x503bd9, _0x55382a) { return _0x503bd9 >= _0x55382a; }, 'pqJce': function (_0x41c676, _0x570360) { return _0x41c676(_0x570360); }, 'acdPT': function (_0x23db97, _0x4d470d) { return _0x23db97 >= _0x4d470d; }, 'QlnKT': function (_0x116309, _0x21aee3) { return _0x116309 === _0x21aee3; }, 'xDbsX': _0x1e7617(0x182) + '5', 'sREiz': _0x1e7617(0x14d) + _0x1e7617(0x16c), 'HEroM': function (_0x2720d5, _0x141e68, _0x386365) { return _0x2720d5(_0x141e68, _0x386365); }, 'hlCln': _0x1e7617(0x161) + _0x1e7617(0x164) + _0x1e7617(0x186) + _0x1e7617(0x174) + _0x1e7617(0x183) + _0x1e7617(0x14c) + _0x1e7617(0x180), 'cOoYe': function (_0x41d126, _0x33f7e3) { return _0x41d126 === _0x33f7e3; }, 'xVWtW': _0x1e7617(0x18e) + _0x1e7617(0x16f) + _0x1e7617(0x195) + _0x1e7617(0x155) + _0x1e7617(0x15f) + '长' }; if (_0x46d646[_0x1e7617(0x166)](xhr[_0x1e7617(0x15b)], 0x1d8e + -0x2 * -0xb37 + 0x33f8 * -0x1) && _0x46d646[_0x1e7617(0x166)](xhr[_0x1e7617(0x18d)], -0x3 * -0x4ae + -0xeab * -0x1 + -0x1bed)) { var _0x33e96f = _0x46d646[_0x1e7617(0x17c)][_0x1e7617(0x18c)]('|'), _0x5858ba = 0xcb9 * 0x2 + 0x1 * 0x1853 + 0x89 * -0x5d; while (!![]) { switch (_0x33e96f[_0x5858ba++]) { case '0': var _0x4fa765 = _0x2e898a[_0x1e7617(0x18b)][0x5 * -0x8e + -0x1d1e + 0x1fe4][_0x1e7617(0x162)]; continue; case '1': var _0x36fa58 = -0x1c89 + -0x13e5 * -0x1 + 0x8a4; continue; case '2': _0x4bf14e[_0x1e7617(0x17b)] = ''; continue; case '3': var _0x2e898a = JSON[_0x1e7617(0x18a)](xhr[_0x1e7617(0x185) + 'xt']); continue; case '4': var _0x4bf14e = document[_0x1e7617(0x172) + _0x1e7617(0x163)](_0x46d646[_0x1e7617(0x181)]); continue; case '5': var _0x92f043 = _0x46d646[_0x1e7617(0x197)](setInterval, function () { var _0x282f4c = _0x1e7617; _0x4bf14e[_0x282f4c(0x17b)] += _0x4fa765[_0x36fa58], _0x36fa58++, _0x46d646[_0x282f4c(0x189)](_0x36fa58, _0x4fa765[_0x282f4c(0x16d)]) && _0x46d646[_0x282f4c(0x153)](clearInterval, _0x92f043); }, -0x1 * -0x19ff + 0x3 * -0x54a + 0x1 * -0x9ef); continue; }break; } } else { if (_0x46d646[_0x1e7617(0x166)](xhr[_0x1e7617(0x18d)], -0x79 * -0x43 + -0x11a + -0x1ce4)) var _0x4fa765 = _0x46d646[_0x1e7617(0x192)], _0x4bf14e = document[_0x1e7617(0x172) + _0x1e7617(0x163)](_0x46d646[_0x1e7617(0x181)]), _0x36fa58 = -0x2108 + 0xa61 + 0x16a7, _0x92f043 = _0x46d646[_0x1e7617(0x197)](setInterval, function () { var _0x230e8f = _0x1e7617; _0x4bf14e[_0x230e8f(0x17b)] += _0x4fa765[_0x36fa58], _0x36fa58++, _0x46d646[_0x230e8f(0x189)](_0x36fa58, _0x4fa765[_0x230e8f(0x16d)]) && _0x46d646[_0x230e8f(0x153)](clearInterval, _0x92f043); }, -0x1a53 + 0x11d3 + -0x173 * -0x6); else { if (_0x46d646[_0x1e7617(0x150)](xhr[_0x1e7617(0x18d)], -0x544 * -0x7 + -0x1 * -0x1c73 + -0x3fbc)) var _0x4fa765 = _0x46d646[_0x1e7617(0x165)], _0x4bf14e = document[_0x1e7617(0x172) + _0x1e7617(0x163)](_0x46d646[_0x1e7617(0x181)]), _0x36fa58 = -0x1fd + -0x7 * 0x121 + 0x9e4, _0x92f043 = _0x46d646[_0x1e7617(0x197)](setInterval, function () { var _0xeae2b8 = _0x1e7617; _0x4bf14e[_0xeae2b8(0x17b)] += _0x4fa765[_0x36fa58], _0x36fa58++, _0x46d646[_0xeae2b8(0x176)](_0x36fa58, _0x4fa765[_0xeae2b8(0x16d)]) && _0x46d646[_0xeae2b8(0x153)](clearInterval, _0x92f043); }, -0x6d3 * -0x1 + 0xbd6 + -0x1277); } } }; var body = document[_0x5429c0(0x172) + _0x5429c0(0x163)](_0x5429c0(0x191) + _0x5429c0(0x167))[_0x5429c0(0x154)], key = CryptoJS[_0x5429c0(0x177)][_0x5429c0(0x184)][_0x5429c0(0x18a)](_0x5429c0(0x15e) + _0x5429c0(0x170)), iv = CryptoJS[_0x5429c0(0x177)][_0x5429c0(0x184)][_0x5429c0(0x18a)](_0x5429c0(0x159) + _0x5429c0(0x194)), encrypted = CryptoJS[_0x5429c0(0x16a)][_0x5429c0(0x188)](body, key, { 'iv': iv, 'mode': CryptoJS[_0x5429c0(0x14e)][_0x5429c0(0x17e)], 'padding': CryptoJS[_0x5429c0(0x158)][_0x5429c0(0x152) + 'g'] })[_0x5429c0(0x168)](), data = JSON[_0x5429c0(0x15c)]({ 'prompt': encrypted });
+      // await printMessage('正在思考，请等待......');
+      // await xhr.send(data);
+  </script>
+  </head>
+  
+  <body>
+    <header id="sticky-header">
+      <div class="header-area">
+        <div class="container sm-100">
+          <div class="row">
+            <div class="col-md-3 col-sm-2">
+              <div class="logo text-upper">
+                <h4>
+                  <a href="index.html">OpenAi GPT</a></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="basic-portfolio-area ptb-10">
+      <div class="filter-menu text-center mb-40">
+        <h4>与Ai Chat，请描述您的需求-支持中文、英语、日本语等</h4>
+		<h3>本站为Ai Chat公益站如果你在某宝某鱼购买的 请申请退款 并举报！</h3>
+        <h4>此网站是基于OpenAI官方API实现，与ChatGPT功能一致。</h4>
+        <h3>为了解决注册ChatGPT需要美国手机号的问题</h3>
+        <h6>访问费用由站长承担，请勿频繁访问！</h6>
+		<h6><a href="https://pay.sbaliyun.com/#/1/detail" target="_blank">ChatGPT/OpenAi 成品号 5元一个</a></h6>
+		<p><a href="https://pay.sbaliyun.com/#/" target="_blank">http://chatgpt.bailan.fun/pay</a></p>
+		<h6><a href="vip.html" target="_blank">VIP用户使用地址点击我</a></h6>
+	  </div>
+      <div class="call-to-action-area gray-bg ptb-60">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-9">
+              <div class="form-group">
+                <label></label>
+                <textarea class="form-control" id="chat-gpt-input" placeholder="输入描述" rows="3" resize="none" style="width: 135%; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 12px;"></textarea>
+              </div>
+              <div class="col-md-2 col-sm-3 col-xs-12">
+                <div class="call-to-action">
+                  <button onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">回答</button>
+				</div>
+              </div>
+              <div class="col-md-9 col-sm-9 col-xs-9">
+                <div class="form-group">
+                  <label></label>
+                  <textarea class="form-control" id="chatgpt-response" placeholder="长途访问，请耐心等待回答 Ai生成它很快，但是由于网络问题我们需要等待，通常内容越长等待越久 如果长时间没反应请刷新页面重试" rows="26" resize="none" style="width: 150%;height: auto; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: auto;" readonly="true"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+		<footer>
+			<div class="basic-footer gray-bg text-center ptb-20">
+				<div class="container">
+					<div class="footer-logo mb-10">
+						<h3><a href="index.html">Open Ai 智能对话</a></h3>
+					</div>
+					<div class="copyright mt-20">
+						<!-- <p>站长TG：<a href="https://t.me/pocxxx" target="_blank">@pocxxx</a></p> -->
+						<p>国外手机号接码：<a href="https://sms-activate.org/?ref=2461182" target="_blank">https://sms-activate.org</a></p>
+						<hr>
+						<p>本月已花费15400多美金 👇赞助站长👇</p>
+						<p><img src='img/pay.png' style="width:300px"/></p>
+					</div>
+					<div class="footer-menu mt-30">
+						<p>友情链接</p>
+						<nav>
+							<ul>
+								<li><a href="https://fireworks.sbaliyun.com" target="_blank">烟花秀</a></li>
+								<li><a href="http://chatgpt.bailan.fun/pay" target="_blank">ChatGPT小卖部</a></li>
+								<li><a href="https://cloud.tencent.com/developer/article/2192663" target="_blank">本站搭建教程</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+        <script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
+        <script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+        <script type="text/javascript" src="js/jquery.meanmenu.js"></script>
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+		<script>var OriginTitile=document.title; var st; document.addEventListener('visibilitychange',function(){ if(document.hidden){ document.title="(つェ⊂)浏览器崩溃了"; clearTimeout(st); console.log('hide'); }else{ document.title='(*´∇｀*)吖~又好了~ '+OriginTitile; console.log('show'); st=setTimeout(function(){ document.title=OriginTitile; },4000); console.log('endChange='); } });</script>
+		<script src="live2dw/lib/L2Dwidget.min%EF%B9%960c58a1486de42ac6cc1c59c7d98ae887.js"></script>
+		<script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2dw/assets/koharu.model.json"},"display":{"position":"left","width":50,"height":100},"mobile":{"show":false},"log":false});</script>
+		<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?05df94d9887ea8acd5a75f70e8a6bb11";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+		</script>
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203274547589271" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>

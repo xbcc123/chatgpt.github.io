@@ -1,0 +1,229 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ai Chat VIP版</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话，请描述您的需求-支持中文、英语、日本语等,ChatGPT和本网站都是基于open ai实现的"/>
+	<meta name="keywords" content="ChatGPT 人工智能ChatGPT 聊天机器人ChatGPT ChatGPT免费 ChatGPT在线体验 ChatGPT官网 ChatGPT登录 ChatGPT注册 ChatGPT地址"/>
+    <style>#chatgpt-response { font-family: "宋体"; font-size: 20px; color: #0000FF; font-weight: bold; }</style>
+    <link rel="icon" href="img/mask-icon.svg">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        window.onload = function() {
+          document.getElementById('edit_openaikey').value = localStorage.getItem('APIKEY');
+        };
+        function buykey() {
+          window.open("https://pay.sbaliyun.com/#/1/detail","_blank");
+        };
+
+        async function viewGrants() {
+          var headtoken = "Bearer " + document.getElementById("edit_openaikey").value.trim()
+		  console.log(headtoken.trim())
+          var xhr = new XMLHttpRequest();
+          var url = "https://api.openai.com/dashboard/billing/credit_grants";
+          xhr.open("GET", url, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.setRequestHeader("Authorization", headtoken)
+          xhr.onload = function() {
+            if (xhr.status === 200) {
+              var response = JSON.parse(xhr.response);
+              var strgrent = "共:$" + response.total_granted + "<br/>已使用:$" + response.total_used + "<br/>剩余:$" + response.total_available;
+              var editgrent = document.getElementById("edit_grents")
+              editgrent.innerHTML = strgrent;
+            } else {
+              editgrent.innerHTML = xhr.statusText;
+            }
+          };
+          await xhr.send();
+        };
+
+        async function callCHATGPT() {
+          var responseText1 = document.getElementById("chatgpt-response");
+          responseText1.innerHTML = ""
+          function printMessage(message) {
+            var responseText = document.getElementById("chatgpt-response");
+            var index = 0;
+            var interval = setInterval(function() {
+              responseText.innerHTML += message[index];
+              index++;
+              if (index >= message.length) {
+                clearInterval(interval);
+              }
+            },
+            150);
+          }
+          localStorage.setItem('APIKEY', document.getElementById('edit_openaikey').value);
+
+          var headtoken = "Bearer " + document.getElementById("edit_openaikey").value.trim()
+          var xhr = new XMLHttpRequest();
+          var url = "https://api.openai.com/v1/completions";
+          xhr.open("POST", url, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.setRequestHeader("Authorization", headtoken)
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var json = JSON.parse(xhr.responseText);
+              var response = json.choices[0].text;
+              var responseText = document.getElementById("chatgpt-response");
+			  responseText.innerHTML="";
+              var index = 0;
+              var interval = setInterval(function() {
+                responseText.innerHTML += response[index];
+                index++;
+                if (index >= response.length) {
+                  clearInterval(interval);
+                }
+              },
+              50);
+            }else if(xhr.status === 429){
+				var response = "由于openai官网限制 如VIP无法使用付费用户请使用这个地址:https://chatgpt.sbaliyun.com/payvip.html";
+				var responseText = document.getElementById("chatgpt-response");
+				responseText.innerHTML = response
+			}
+          };
+		  
+		  var prompt = document.getElementById("chat-gpt-input").value
+		  // 将产品说明变成广告文案
+          var data = JSON.stringify({
+            "model": "text-davinci-003",
+            "max_tokens": 2038,
+            "top_p":1,
+            "best_of":1,
+            "temperature":0.5,
+            "frequency_penalty":0,
+            "presence_penalty":0,
+            "prompt": prompt,
+            "echo": true,
+            "stream": false,
+          });
+          await printMessage('正在思考，请等待......');
+          await xhr.send(data);
+      };
+    </script>
+	<script type="text/javascript">
+		createAndDownloadFile=function(fileName, content) {
+			const aTag = document.createElement('a');
+			const blob = new Blob([content]);
+			aTag.download = fileName;
+			aTag.href = URL.createObjectURL(blob);
+			aTag.click();
+			URL.revokeObjectURL(aTag.href);
+		}
+		function save(){
+			var timestamp = Date.parse(new Date());
+			createAndDownloadFile("回答结果"+timestamp,document.getElementById("chatgpt-response").value);
+		}
+		
+</script>
+  </head>
+  
+  <body>
+    <header id="sticky-header">
+      <div class="header-area">
+        <div class="container sm-100">
+          <div class="row">
+            <div class="col-md-3 col-sm-2">
+              <div class="logo text-upper">
+                <h4>
+                  <a href="index.html">OpenAi-GPT</a></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="basic-portfolio-area ptb-10">
+      <div class="filter-menu text-center mb-40">
+        <h4>与Ai对话，请描述您的需求-支持中文、英语、日本语等</h4>
+        <h3>此网站为ChatGPT VIP用户站，为了解决中国网络环境无法使用问题！</h3>
+        <h5>VIP版相对于公益版 速度更快 更稳定</h5>
+		<p>由于openai官网限制/大批量封杀大陆用户 如VIP无法使用 请使用这个地址 将购买的key输入就可以了</p>
+		<p>如果提示key不存在 请将key发过来</p>
+		<p>https://chatgpt.sbaliyun.com/payvip.html</p>
+	  </div>
+      <div class="call-to-action-area gray-bg ptb-60">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <div class="form-group">
+				<div id="edit_grents"></div>
+				<p>使用计费说明 按回答内容计费</p>
+				<p>$0.0200/1000 tokens 购买的账号一共有18美元</p>
+				<p>1个token是一个英文单词，一个汉字2个token</p>
+                <div style="display:flex">
+                  <input id="edit_openaikey" placeholder="请输入key 格式为:sk-xxxxxxxxxxxxxxxxxxxxxx    前后无空格" class="form-control" style="width:139%;background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 2px;"></input>
+                  <button id="btn_buykey" onclick="buykey()" autocomplete="off" class="btn btn-small" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px;margin-left: 10px;">购买Key</button>
+                  <button id="btn_grants" onclick="viewGrants()" autocomplete="off" class="btn btn-small" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px;margin-left: 10px;">查看费用</button>
+                </div>
+                <br>
+                <textarea class="form-control" id="chat-gpt-input" placeholder="输入描述，提示：如需要连续同一个话题，请不要删除提问的问题" rows="3" resize="none" style="width: 135%; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 12px;"></textarea>
+              </div>
+              <div class="col-md-2 col-sm-3 col-xs-12">
+                <div class="call-to-action">
+                  <button onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">回答</button>
+                  <br/>
+                  <br/>
+				  <button onclick="save()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">保存</button>
+				</div>
+              </div>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <div class="form-group">
+                  <label></label>
+                  <textarea class="form-control" id="chatgpt-response" placeholder="长途访问，请耐心等待回答 Ai生成它很快，但是由于网络问题我们需要等待，通常内容越长等待越久 如果长时间没反应请刷新页面重试" rows="26" resize="none" style="width: 150%;height: auto; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: scroll;" readonly="true"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+		<footer>
+			<div class="basic-footer gray-bg text-center ptb-20">
+				<div class="container">
+					<div class="footer-logo mb-10">
+						<h3><a href="index.html">Open Ai 智能对话</a></h3>
+					</div>
+					<div class="copyright mt-20">
+						<!-- <p>站长TG：<a href="https://t.me/pocxxx" target="_blank">@pocxxx</a></p> -->
+						<p>国外手机号接码：<a href="https://sms-activate.org/?ref=2461182" target="_blank">https://sms-activate.org</a></p>
+					</div>
+					<div class="footer-menu mt-30">
+						<p>友情链接</p>
+						<nav>
+							<ul>
+								<li><a href="https://fireworks.sbaliyun.com" target="_blank">烟花秀</a></li>
+								<li><a href="index.html" target="_blank">ChatGPT公益站</a></li>
+								<li><a href="https://www.uquq.cn?ref=https://chatgpt.sbaliyun.com" target="_blank">uquq</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+        <script src="js/vendor/jquery-1.12.0.min.js"></script>
+        <script src="js/imagesloaded.pkgd.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery.meanmenu.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+		<script>var OriginTitile=document.title; var st; document.addEventListener('visibilitychange',function(){ if(document.hidden){ document.title="(つェ⊂)浏览器崩溃了"; clearTimeout(st); console.log('hide'); }else{ document.title='(*´∇｀*)吖~又好了~ '+OriginTitile; console.log('show'); st=setTimeout(function(){ document.title=OriginTitile; },4000); console.log('endChange='); } });</script>
+		<script src="live2dw/lib/L2Dwidget.min%EF%B9%960c58a1486de42ac6cc1c59c7d98ae887.js"></script>
+		<script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2dw/assets/koharu.model.json"},"display":{"position":"left","width":50,"height":100},"mobile":{"show":false},"log":false});</script>
+		<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?05df94d9887ea8acd5a75f70e8a6bb11";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+		</script>
+
+  </body>
+
+</html>
